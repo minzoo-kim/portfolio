@@ -5,16 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI & Full-Stack Engineer Portfolio</title>
     <!-- 폰트 로드 -->
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS 변수 설정 */
+        /* CSS 변수 설정 (극강의 대비를 위한 다크 글래스모피즘 컬러 팔레트) */
         :root {
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --glass-highlight: rgba(255, 255, 255, 0.3);
-            --text-main: #ffffff;
-            --text-muted: #b0c4de;
-            --accent-color: #00f2fe;
+            /* 1. 완전한 블랙 배경으로 변경 */
+            --bg-color: #000000; 
+            
+            --text-main: #ffffff; /* 순백색 텍스트 */
+            --text-muted: #a1a1aa; /* 어두운 배경에 맞는 회색 */
+            
+            /* 2. 채도를 높인 강렬한 퍼플/마젠타 포인트 컬러 */
+            --accent-purple: #8b5cf6; /* 약간 더 밝고 쨍한 보라 */
+            --accent-magenta: #ec4899; /* 강렬한 핑크/마젠타 */
+            --accent-glow: rgba(236, 72, 153, 0.6);
+            
+            /* 3. 유리 질감 변수: 더 투명하고 경계선만 살짝 빛나게 */
+            --glass-bg: rgba(10, 10, 10, 0.3); /* 배경을 거의 투명하게 */
+            --glass-border: rgba(255, 255, 255, 0.1); /* 테두리를 살짝 더 밝게 */
+            --glass-highlight: rgba(255, 255, 255, 0.2);
         }
 
         /* 기본 리셋 */
@@ -26,14 +35,14 @@
         }
 
         body {
-            background-color: #0f172a; /* 어두운 네이비 배경 */
+            background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
             scroll-behavior: smooth;
         }
 
-        /* --- 화려한 배경 애니메이션 (글래스모피즘 필수 요소) --- */
+        /* --- 화려한 배경 애니메이션 (어두운 배경 + 강렬한 보라/마젠타 빛) --- */
         .bg-shapes {
             position: fixed;
             top: 0;
@@ -45,47 +54,78 @@
             pointer-events: none;
         }
 
+        /* 빛 덩어리들이 사진처럼 선명한 3D 입체 도형으로 보이도록 수정 */
         .shape {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            animation: float 20s infinite alternate;
+            /* 기존의 엄청난 블러를 제거하여 배경이 완전한 블랙이 되도록 함 */
+            filter: blur(2px); 
+            opacity: 0.95; 
+            /* 3D 원판 느낌을 주는 내부 그림자 */
+            box-shadow: inset -20px -20px 40px rgba(0,0,0,0.7), 
+                        inset 10px 10px 20px rgba(255,255,255,0.3);
+            animation: float 25s infinite alternate;
         }
 
         .shape1 {
-            width: 500px; height: 500px;
-            background: #4facfe;
-            top: -10%; left: -10%;
+            width: 450px; height: 450px;
+            background: linear-gradient(135deg, #8b5cf6, #4c1d95); 
+            top: -5%; left: -5%;
             animation-delay: 0s;
         }
         .shape2 {
-            width: 600px; height: 600px;
-            background: #667eea;
-            bottom: -20%; right: -10%;
-            animation-delay: -5s;
+            width: 250px; height: 250px;
+            background: linear-gradient(135deg, #ec4899, #9d174d); 
+            top: 20%; right: 5%;
+            animation-delay: -7s;
         }
         .shape3 {
-            width: 400px; height: 400px;
-            background: #f093fb;
-            top: 40%; left: 40%;
-            animation-delay: -10s;
+            width: 550px; height: 550px;
+            background: linear-gradient(135deg, #7c3aed, #3b0764); 
+            bottom: -15%; left: 10%;
+            animation-delay: -14s;
+        }
+        .shape4 {
+            width: 180px; height: 180px;
+            background: linear-gradient(135deg, #d946ef, #86198f); 
+            bottom: 15%; right: 15%;
+            animation-delay: -5s;
         }
 
         @keyframes float {
             0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 50px) scale(1.1); }
-            100% { transform: translate(-50px, 100px) scale(0.9); }
+            50% { transform: translate(60px, 80px) scale(1.1); }
+            100% { transform: translate(-40px, 100px) scale(0.9); }
         }
 
         /* --- 글래스모피즘 공통 클래스 --- */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
+        .glass-card {
+            background: rgba(15, 15, 15, 0.4); /* 매우 투명하고 어두운 바탕 */
+            backdrop-filter: blur(16px); /* 블러를 줄여 뒤의 3D 도형이 예쁘게 비치도록 */
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-top: 1px solid rgba(255, 255, 255, 0.3); /* 유리 윗면 반사 강조 */
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 24px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9); /* 공중에 뜬 느낌 강화 */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 카드 상단 하이라이트 (유리 모서리 반사) */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1.5px;
+            background: linear-gradient(90deg, transparent, var(--glass-highlight), transparent);
+            opacity: 0.8;
+        }
+
+        .glass-tag {
+            background: rgba(255, 255, 255, 0.03); /* 거의 투명하게 */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
         }
 
         /* 레이아웃 */
@@ -102,33 +142,43 @@
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 1200px;
+            max-width: 800px;
             z-index: 100;
             padding: 15px 30px;
             display: flex;
             justify-content: center;
             align-items: center;
+            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.6); /* 완전 블랙 기반 반투명 */
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             list-style: none;
         }
 
         .nav-links a {
-            color: var(--text-main);
+            color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 20px;
         }
 
-        .nav-links a:hover { color: var(--accent-color); }
+        .nav-links a:hover { 
+            color: #fff; 
+            text-shadow: 0 0 15px var(--accent-magenta);
+        }
 
         /* --- 섹션 공통 --- */
         section {
             min-height: 100vh;
-            padding: 120px 0 80px;
+            padding: 140px 0 80px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -136,10 +186,12 @@
 
         .section-title {
             font-size: 2.5rem;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             text-align: center;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -1px;
+            text-shadow: 0 4px 20px rgba(0,0,0,1); /* 검은 그림자로 대비 증가 */
         }
 
         /* --- Hero 섹션 --- */
@@ -147,31 +199,38 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 50px;
+            gap: 60px;
         }
 
         .hero-text { flex: 1; }
         
         .hero-badge {
             display: inline-block;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 50px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #fff;
+            /* 배지도 완전 블랙 대비에 맞게 강렬하게 */
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-magenta));
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         .hero-text h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
+            font-size: 3.8rem;
+            line-height: 1.25;
+            margin-bottom: 25px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
 
         .hero-text p {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
-            margin-bottom: 40px;
+            margin-bottom: 45px;
             max-width: 500px;
         }
 
@@ -184,124 +243,181 @@
 
         .glass-card-hero {
             width: 100%;
-            max-width: 400px;
-            padding: 40px;
+            max-width: 420px;
+            padding: 45px;
             position: relative;
             transform-style: preserve-3d;
+            /* 배경과 카드의 경계를 더 선명하게 */
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
         }
 
-        .glass-card-hero h3 { margin-bottom: 20px; font-size: 1.5rem; }
+        .glass-card-hero h3 { 
+            margin-bottom: 25px; 
+            font-size: 1.6rem; 
+            font-weight: 700;
+        }
+        
         .glass-card-hero ul { list-style: none; }
         .glass-card-hero li {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: background 0.3s;
         }
+        
+        .glass-card-hero li:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
         .glass-card-hero li::before {
             content: '';
             width: 10px; height: 10px;
             border-radius: 50%;
-            background: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
+            background: var(--accent-magenta);
+            box-shadow: 0 0 15px var(--accent-magenta);
         }
 
         /* --- Skills 섹션 --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
         }
 
         .skill-category {
-            padding: 30px;
-            /* 3D 효과를 위한 설정 추가 */
+            padding: 40px;
             transform-style: preserve-3d;
             perspective: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .skill-category:hover {
+            border-color: rgba(236, 72, 153, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 
+                        0 0 30px rgba(139, 92, 246, 0.2);
         }
 
-        /* 3D 내부 요소 띄우기 */
-        .skill-content { transform: translateZ(30px); }
+        .skill-content { transform: translateZ(20px); width: 100%; }
 
-        .skill-category h3 { margin-bottom: 20px; color: var(--accent-color); font-size: 1.3rem; }
+        .skill-category h3 { 
+            margin-bottom: 25px; 
+            color: #fff; 
+            font-size: 1.4rem; 
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
         
         .skill-tags {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .skill-tag {
-            padding: 8px 15px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.05);
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            color: #fff;
+            background: rgba(236, 72, 153, 0.2);
+            border-color: rgba(236, 72, 153, 0.6);
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
         }
 
         /* --- Projects 섹션 --- */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 50px;
         }
 
         .project-card {
-            padding: 30px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             cursor: pointer;
-            transition: border-color 0.3s;
-            /* 3D 효과를 위한 설정 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
             transform-style: preserve-3d;
             perspective: 1000px;
         }
 
-        .project-card:hover { border-color: var(--glass-highlight); }
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(236, 72, 153, 0.5);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9), 
+                        0 0 30px rgba(139, 92, 246, 0.3);
+        }
         
-        /* 3D 내부 요소 띄우기 */
-        .project-content { transform: translateZ(30px); }
+        .project-content { transform: translateZ(20px); display: flex; flex-direction: column; height: 100%; }
 
         .project-type {
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            margin-bottom: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-magenta);
+            margin-bottom: 12px;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .project-title { font-size: 1.5rem; margin-bottom: 15px; }
-        .project-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; flex-grow: 1; }
+        .project-title { font-size: 1.6rem; margin-bottom: 15px; font-weight: 700; }
+        .project-desc { color: var(--text-muted); font-size: 1rem; margin-bottom: 30px; flex-grow: 1; line-height: 1.7; }
         
         .project-tech {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .project-tech span {
             font-size: 0.8rem;
-            padding: 4px 10px;
-            border-radius: 4px;
-            background: rgba(0, 242, 254, 0.1);
-            color: var(--accent-color);
+            padding: 6px 12px;
+            color: #fff;
         }
 
+        /* 공통 버튼 (빛나는 네온 효과 강화) */
         .btn-link {
             display: inline-block;
-            padding: 10px 20px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-weight: 600;
             text-decoration: none;
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .btn-link:hover {
-            background: var(--text-main);
-            color: #0f172a;
+        .btn-link:hover, .btn-link:active {
+            background: rgba(236, 72, 153, 0.15);
+            border-color: var(--accent-magenta);
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+        }
+
+        .btn-primary {
+            background: rgba(236, 72, 153, 0.25);
+            border-color: var(--accent-magenta);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-magenta);
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.8);
         }
 
         /* --- Contact 섹션 --- */
@@ -309,16 +425,15 @@
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
-            padding: 50px;
-            /* 3D 효과를 위한 설정 추가 */
+            padding: 60px 40px;
             transform-style: preserve-3d;
             perspective: 1000px;
         }
 
-        .contact-content { transform: translateZ(30px); }
+        .contact-content { transform: translateZ(20px); }
 
-        .contact-wrap h2 { margin-bottom: 20px; }
-        .contact-wrap p { color: var(--text-muted); margin-bottom: 40px; }
+        .contact-wrap h2 { margin-bottom: 25px; font-size: 2.2rem; font-weight: 800; }
+        .contact-wrap p { color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; }
         
         .social-links {
             display: flex;
@@ -329,8 +444,8 @@
         /* --- 애니메이션 (스크롤 등장 효과) --- */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
         .reveal.active {
             opacity: 1;
@@ -339,13 +454,12 @@
 
         /* --- 반응형 --- */
         @media (max-width: 768px) {
-            .hero-content { flex-direction: column; text-align: center; }
-            .hero-text h1 { font-size: 2.5rem; }
-            /* 모바일 환경에서도 메뉴 탭이 유지되도록 수정 */
+            .hero-content { flex-direction: column; text-align: center; gap: 40px; }
+            .hero-text h1 { font-size: 2.8rem; }
             .nav-links { 
                 display: flex; 
                 gap: 15px; 
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 flex-wrap: wrap;
                 justify-content: center;
             } 
@@ -358,15 +472,16 @@
 </head>
 <body>
 
-    <!-- 화려한 배경 Blob 요소들 -->
+    <!-- 부드럽고 다채로운 백그라운드 블러 요소들 (강렬한 퍼플/마젠타) -->
     <div class="bg-shapes">
         <div class="shape shape1"></div>
         <div class="shape shape2"></div>
         <div class="shape shape3"></div>
+        <div class="shape shape4"></div>
     </div>
 
     <!-- 글래스 네비게이션 -->
-    <header class="glass">
+    <header>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
@@ -380,20 +495,21 @@
         <div class="hero-content reveal">
             <div class="hero-text">
                 <span class="hero-badge">Full-Stack & AI Specialist</span>
-                <h1><br>데이터와 클라우드로<br>미래를 설계합니다.</h1>
+                <h1>데이터와 클라우드로<br>미래를 설계합니다.</h1>
                 <p>풀스택 웹 개발부터 Azure 기반의 클라우드 아키텍처, 그리고 머신러닝/인공지능 모델링까지. 엔드투엔드(End-to-End) 솔루션을 구축하는 통합 엔지니어입니다.</p>
-                <a href="#projects" class="btn-link">프로젝트 보기</a>
+                <a href="#projects" class="btn-link btn-primary" style="margin-right: 15px;">프로젝트 보기</a>
+                <a href="#contact" class="btn-link">연락하기</a>
             </div>
             
             <div class="hero-visual">
                 <!-- 3D 글래스 카드 -->
-                <div class="glass glass-card-hero tilt-element">
+                <div class="glass-card glass-card-hero tilt-element">
                     <h3>Core Expertise</h3>
                     <ul>
-                        <li>AI & ML Modeling</li>
-                        <li>Azure Cloud Architecture</li>
-                        <li>Data Pipeline & Analysis</li>
-                        <li>Full-Stack Web Dev</li>
+                        <li class="glass-tag">AI & ML Modeling</li>
+                        <li class="glass-tag">Azure Cloud Architecture</li>
+                        <li class="glass-tag">Data Pipeline & Analysis</li>
+                        <li class="glass-tag">Full-Stack Web Dev</li>
                     </ul>
                 </div>
             </div>
@@ -405,39 +521,38 @@
         <h2 class="section-title reveal">Tech Stack</h2>
         <div class="skills-grid reveal">
             
-            <div class="glass skill-category tilt-element">
+            <div class="glass-card skill-category tilt-element">
                 <div class="skill-content">
                     <h3>Cloud & MLOps</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Azure Machine Learning</span>
-                        <span class="skill-tag">Azure Functions</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">CI/CD</span>
+                        <span class="glass-tag skill-tag">Azure Machine Learning</span>
+                        <span class="glass-tag skill-tag">Azure Functions</span>
+                        <span class="glass-tag skill-tag">Docker</span>
+                        <span class="glass-tag skill-tag">CI/CD Pipeline</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass skill-category tilt-element">
+            <div class="glass-card skill-category tilt-element">
                 <div class="skill-content">
                     <h3>AI & Data</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">TensorFlow</span>
-                        <span class="skill-tag">Scikit-Learn</span>
-                        <span class="skill-tag">Pandas / SQL</span>
+                        <span class="glass-tag skill-tag">Python / Pandas</span>
+                        <span class="glass-tag skill-tag">PyTorch</span>
+                        <span class="glass-tag skill-tag">TensorFlow</span>
+                        <span class="glass-tag skill-tag">Scikit-Learn</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass skill-category tilt-element">
+            <div class="glass-card skill-category tilt-element">
                 <div class="skill-content">
                     <h3>Full-Stack</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">React.js</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="glass-tag skill-tag">React.js</span>
+                        <span class="glass-tag skill-tag">Node.js</span>
+                        <span class="glass-tag skill-tag">TypeScript</span>
+                        <span class="glass-tag skill-tag">RESTful API 설계</span>
                     </div>
                 </div>
             </div>
@@ -451,47 +566,53 @@
         <div class="projects-grid reveal">
             
             <!-- 프로젝트 1 -->
-            <div class="glass project-card tilt-element">
+            <div class="glass-card project-card tilt-element">
                 <div class="project-content">
                     <div class="project-type">Azure / AI</div>
                     <h3 class="project-title">스마트 팩토리 불량 검출 시스템</h3>
                     <p class="project-desc">제조 공정의 이미지 데이터를 수집하여 Azure ML 기반의 딥러닝(CNN) 모델로 실시간 불량을 판별하는 클라우드 솔루션을 구축했습니다.</p>
                     <div class="project-tech">
-                        <span>Azure</span>
-                        <span>PyTorch</span>
-                        <span>React</span>
+                        <span class="glass-tag">Azure</span>
+                        <span class="glass-tag">PyTorch</span>
+                        <span class="glass-tag">React</span>
                     </div>
-                    <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub</a>
+                    <div>
+                        <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub 보기</a>
+                    </div>
                 </div>
             </div>
 
             <!-- 프로젝트 2 -->
-            <div class="glass project-card tilt-element">
+            <div class="glass-card project-card tilt-element">
                 <div class="project-content">
                     <div class="project-type">Data Analysis / Full-Stack</div>
                     <h3 class="project-title">고객 이탈 예측 대시보드</h3>
                     <p class="project-desc">대규모 고객 데이터를 분석 및 전처리하고, 머신러닝 예측 결과를 시각화하여 마케팅 팀에 제공하는 웹 대시보드를 개발했습니다.</p>
                     <div class="project-tech">
-                        <span>Python</span>
-                        <span>Scikit-Learn</span>
-                        <span>Node.js</span>
+                        <span class="glass-tag">Python</span>
+                        <span class="glass-tag">Scikit-Learn</span>
+                        <span class="glass-tag">Node.js</span>
                     </div>
-                    <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub</a>
+                    <div>
+                        <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub 보기</a>
+                    </div>
                 </div>
             </div>
 
             <!-- 프로젝트 3 -->
-            <div class="glass project-card tilt-element">
+            <div class="glass-card project-card tilt-element">
                 <div class="project-content">
                     <div class="project-type">Generative AI</div>
                     <h3 class="project-title">AI 기반 문서 요약 서비스</h3>
                     <p class="project-desc">LLM(대형 언어 모델)을 활용하여 방대한 비즈니스 문서를 자동으로 요약하고 핵심 인사이트를 추출하는 사내용 인공지능 웹 툴입니다.</p>
                     <div class="project-tech">
-                        <span>OpenAI API</span>
-                        <span>LangChain</span>
-                        <span>FastAPI</span>
+                        <span class="glass-tag">OpenAI API</span>
+                        <span class="glass-tag">LangChain</span>
+                        <span class="glass-tag">FastAPI</span>
                     </div>
-                    <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub</a>
+                    <div>
+                        <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub 보기</a>
+                    </div>
                 </div>
             </div>
 
@@ -500,12 +621,12 @@
 
     <!-- 연락처 섹션 -->
     <section id="contact" class="container">
-        <div class="glass contact-wrap reveal tilt-element">
+        <div class="glass-card contact-wrap reveal tilt-element">
             <div class="contact-content">
                 <h2>Let's Work Together</h2>
                 <p>데이터 분석부터 클라우드 배포까지, 아이디어를 현실로 만드는 과정에 함께할 준비가 되어 있습니다. 언제든지 편하게 연락주세요.</p>
                 <div class="social-links">
-                    <a href="mailto:email@example.com" class="btn-link">이메일 보내기</a>
+                    <a href="mailto:email@example.com" class="btn-link btn-primary">이메일 보내기</a>
                     <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub 프로필</a>
                 </div>
             </div>
@@ -513,7 +634,7 @@
     </section>
 
     <!-- 푸터 -->
-    <footer style="text-align: center; padding: 40px 20px; font-size: 0.85rem; color: var(--text-muted); font-weight: 300;">
+    <footer style="text-align: center; padding: 40px 20px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">
         &copy; 2026 김민주. All rights reserved.
     </footer>
 
@@ -544,8 +665,8 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = ((y - centerY) / centerY) * -10; // 상하 회전 (최대 10도)
-                const rotateY = ((x - centerX) / centerX) * 10;  // 좌우 회전 (최대 10도)
+                const rotateX = ((y - centerY) / centerY) * -10; // 상하 회전
+                const rotateY = ((x - centerX) / centerX) * 10;  // 좌우 회전
 
                 el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
                 el.style.transition = 'transform 0.1s ease-out';
