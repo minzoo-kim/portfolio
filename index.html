@@ -1,287 +1,555 @@
 <!DOCTYPE html>
-<html lang="ko" class="scroll-smooth">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Full-Stack & AI Engineer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>AI & Full-Stack Engineer Portfolio</title>
+    <!-- 폰트 로드 -->
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .text-gradient { background: linear-gradient(90deg, #3b82f6, #2dd4bf); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3); }
-        .blob { position: absolute; width: 300px; height: 300px; background: rgba(59, 130, 246, 0.2); filter: blur(80px); border-radius: 50%; z-index: -1; }
+        /* CSS 변수 설정 */
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-highlight: rgba(255, 255, 255, 0.3);
+            --text-main: #ffffff;
+            --text-muted: #b0c4de;
+            --accent-color: #00f2fe;
+        }
+
+        /* 기본 리셋 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        body {
+            background-color: #0f172a; /* 어두운 네이비 배경 */
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* --- 화려한 배경 애니메이션 (글래스모피즘 필수 요소) --- */
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float 20s infinite alternate;
+        }
+
+        .shape1 {
+            width: 500px; height: 500px;
+            background: #4facfe;
+            top: -10%; left: -10%;
+            animation-delay: 0s;
+        }
+        .shape2 {
+            width: 600px; height: 600px;
+            background: #667eea;
+            bottom: -20%; right: -10%;
+            animation-delay: -5s;
+        }
+        .shape3 {
+            width: 400px; height: 400px;
+            background: #f093fb;
+            top: 40%; left: 40%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+            100% { transform: translate(-50px, 100px) scale(0.9); }
+        }
+
+        /* --- 글래스모피즘 공통 클래스 --- */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* 레이아웃 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- 네비게이션 --- */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            z-index: 100;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent-color); }
+
+        /* --- 섹션 공통 --- */
+        section {
+            min-height: 100vh;
+            padding: 120px 0 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* --- Hero 섹션 --- */
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .hero-text { flex: 1; }
+        
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .glass-card-hero {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .glass-card-hero h3 { margin-bottom: 20px; font-size: 1.5rem; }
+        .glass-card-hero ul { list-style: none; }
+        .glass-card-hero li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .glass-card-hero li::before {
+            content: '';
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        /* --- Skills 섹션 --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            padding: 30px;
+            /* 3D 효과를 위한 설정 추가 */
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        /* 3D 내부 요소 띄우기 */
+        .skill-content { transform: translateZ(30px); }
+
+        .skill-category h3 { margin-bottom: 20px; color: var(--accent-color); font-size: 1.3rem; }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- Projects 섹션 --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: border-color 0.3s;
+            /* 3D 효과를 위한 설정 */
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .project-card:hover { border-color: var(--glass-highlight); }
+        
+        /* 3D 내부 요소 띄우기 */
+        .project-content { transform: translateZ(30px); }
+
+        .project-type {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .project-title { font-size: 1.5rem; margin-bottom: 15px; }
+        .project-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; flex-grow: 1; }
+        
+        .project-tech {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .project-tech span {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--accent-color);
+        }
+
+        .btn-link {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-link:hover {
+            background: var(--text-main);
+            color: #0f172a;
+        }
+
+        /* --- Contact 섹션 --- */
+        .contact-wrap {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 50px;
+            /* 3D 효과를 위한 설정 추가 */
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .contact-content { transform: translateZ(30px); }
+
+        .contact-wrap h2 { margin-bottom: 20px; }
+        .contact-wrap p { color: var(--text-muted); margin-bottom: 40px; }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* --- 애니메이션 (스크롤 등장 효과) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 반응형 --- */
+        @media (max-width: 768px) {
+            .hero-content { flex-direction: column; text-align: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* 모바일에서는 메뉴 숨김 (필요시 햄버거 메뉴 추가) */
+            header { justify-content: center; }
+        }
     </style>
 </head>
-<body class="bg-[#0a0a0c] text-gray-200 overflow-x-hidden">
+<body>
 
-    <!-- Blobs for Background -->
-    <div class="blob top-20 -left-20"></div>
-    <div class="blob bottom-20 -right-20 bg-teal-500/10"></div>
+    <!-- 화려한 배경 Blob 요소들 -->
+    <div class="bg-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass top-0">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold tracking-tighter text-gradient uppercase">Dev.Portfolio</a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="#about" class="hover:text-blue-400 transition">About</a>
-                <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
-                <a href="#projects" class="hover:text-blue-400 transition">Projects</a>
-                <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+    <!-- 글래스 네비게이션 -->
+    <header class="glass">
+        <a href="#" class="logo">Dev.김민주</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </header>
+
+    <!-- 메인 Hero 섹션 -->
+    <section id="about" class="container">
+        <div class="hero-content reveal">
+            <div class="hero-text">
+                <span class="hero-badge">Full-Stack & AI Specialist</span>
+                <h1><br>데이터와 클라우드로<br>미래를 설계합니다.</h1>
+                <p>풀스택 웹 개발부터 Azure 기반의 클라우드 아키텍처, 그리고 머신러닝/인공지능 모델링까지. 엔드투엔드(End-to-End) 솔루션을 구축하는 통합 엔지니어입니다.</p>
+                <a href="#projects" class="btn-link">프로젝트 보기</a>
             </div>
-            <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-[#0a0a0c] border-b border-white/10 px-6 py-4 space-y-4">
-            <a href="#about" class="block hover:text-blue-400">About</a>
-            <a href="#skills" class="block hover:text-blue-400">Skills</a>
-            <a href="#projects" class="block hover:text-blue-400">Projects</a>
-            <a href="#contact" class="block hover:text-blue-400">Contact</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 px-6 min-h-screen flex items-center justify-center">
-        <div class="max-w-4xl text-center">
-            <h2 class="text-blue-400 font-semibold tracking-widest mb-4 uppercase animate-pulse text-sm md:text-base">Full-Stack & Cloud Specialist</h2>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
-                데이터와 <span class="text-gradient">인공지능</span>으로<br>비즈니스 가치를 창출합니다.
-            </h1>
-            <p class="text-gray-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-                Azure 클라우드 아키텍처부터 머신러닝 모델 구축, 그리고 웹 서비스 배포까지 전 과정을 아우르는 엔지니어링 역량을 보유하고 있습니다.
-            </p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="#projects" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold transition-all shadow-lg shadow-blue-500/20">
-                    프로젝트 보기
-                </a>
-                <a href="#contact" class="px-8 py-4 glass hover:bg-white/10 text-white rounded-full font-bold transition-all">
-                    연락하기
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-20 px-6 max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="order-2 md:order-1">
-                <h3 class="text-3xl font-bold mb-6">Expertise</h3>
-                <div class="space-y-6">
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 glass rounded-2xl flex items-center justify-center text-blue-400">
-                            <i class="fas fa-layer-group"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-semibold">Full-stack Development</h4>
-                            <p class="text-gray-400">확장성 있는 아키텍처 설계를 기반으로 직관적인 사용자 경험을 제공하는 웹 애플리케이션을 구축합니다.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 glass rounded-2xl flex items-center justify-center text-teal-400">
-                            <i class="fas fa-cloud"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-semibold">Azure Cloud Services</h4>
-                            <p class="text-gray-400">클라우드 네이티브 인프라 구축, 서버리스 컴퓨팅 및 클라우드 비용 최적화에 전문성을 갖추고 있습니다.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 glass rounded-2xl flex items-center justify-center text-purple-400">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-semibold">AI & Machine Learning</h4>
-                            <p class="text-gray-400">비즈니스 문제 해결을 위한 정교한 데이터 분석 및 예측 모델링, LLM 기반 서비스 구현이 가능합니다.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="order-1 md:order-2 flex justify-center">
-                <!-- 이미지 위치: 실제 프로필 이미지가 있다면 src 수정 -->
-                <div class="relative w-64 h-64 md:w-80 md:h-80">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-teal-400 rounded-3xl rotate-6 opacity-30"></div>
-                    <div class="absolute inset-0 glass rounded-3xl overflow-hidden shadow-2xl">
-                        <div class="w-full h-full flex items-center justify-center text-8xl text-gray-700 bg-gray-900/50">
-                            <i class="fas fa-user-astronaut"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 px-6 bg-white/[0.02]">
-        <div class="max-w-7xl mx-auto">
-            <h3 class="text-3xl font-bold mb-12 text-center">Technical Skills</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <!-- Category 1 -->
-                <div class="p-6 glass rounded-3xl">
-                    <h4 class="text-blue-400 font-bold mb-4">Programming</h4>
-                    <ul class="space-y-2 text-sm text-gray-300">
-                        <li>Python (Pandas, PyTorch)</li>
-                        <li>TypeScript / JavaScript</li>
-                        <li>Go / Rust</li>
-                        <li>SQL & NoSQL</li>
-                    </ul>
-                </div>
-                <!-- Category 2 -->
-                <div class="p-6 glass rounded-3xl">
-                    <h4 class="text-teal-400 font-bold mb-4">Cloud & DevOps</h4>
-                    <ul class="space-y-2 text-sm text-gray-300">
-                        <li>Azure Fundamentals</li>
-                        <li>Docker & Kubernetes</li>
-                        <li>CI/CD Pipelines</li>
-                        <li>Terraform (IaC)</li>
-                    </ul>
-                </div>
-                <!-- Category 3 -->
-                <div class="p-6 glass rounded-3xl">
-                    <h4 class="text-purple-400 font-bold mb-4">Data & AI</h4>
-                    <ul class="space-y-2 text-sm text-gray-300">
-                        <li>Deep Learning Models</li>
-                        <li>Natural Language Processing</li>
-                        <li>Big Data Processing</li>
-                        <li>MLOps</li>
-                    </ul>
-                </div>
-                <!-- Category 4 -->
-                <div class="p-6 glass rounded-3xl">
-                    <h4 class="text-pink-400 font-bold mb-4">Web Stack</h4>
-                    <ul class="space-y-2 text-sm text-gray-300">
-                        <li>React / Next.js</li>
-                        <li>Node.js / Express</li>
-                        <li>FastAPI / Flask</li>
-                        <li>Tailwind CSS</li>
+            
+            <div class="hero-visual">
+                <!-- 3D 글래스 카드 -->
+                <div class="glass glass-card-hero tilt-element">
+                    <h3>Core Expertise</h3>
+                    <ul>
+                        <li>AI & ML Modeling</li>
+                        <li>Azure Cloud Architecture</li>
+                        <li>Data Pipeline & Analysis</li>
+                        <li>Full-Stack Web Dev</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 px-6 max-w-7xl mx-auto">
-        <h3 class="text-3xl font-bold mb-12">Featured Projects</h3>
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Project Card 1 -->
-            <div class="glass rounded-3xl overflow-hidden card-hover group">
-                <div class="h-48 bg-gradient-to-br from-blue-900 to-black flex items-center justify-center">
-                    <i class="fas fa-chart-line text-5xl text-blue-500 group-hover:scale-110 transition"></i>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs font-bold text-blue-400 tracking-widest uppercase">AI & Data Analysis</span>
-                    <h4 class="text-xl font-bold mt-2 mb-3">전력 수요 예측 AI 시스템</h4>
-                    <p class="text-gray-400 text-sm mb-4 leading-relaxed">Azure Machine Learning을 활용하여 시계열 데이터 기반의 에너지 소비 예측 대시보드 구축.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] px-2 py-1 bg-white/5 rounded-md">Python</span>
-                        <span class="text-[10px] px-2 py-1 bg-white/5 rounded-md">Azure ML</span>
-                        <span class="text-[10px] px-2 py-1 bg-white/5 rounded-md">LSTM</span>
+    <!-- 기술 스택 섹션 -->
+    <section id="skills" class="container">
+        <h2 class="section-title reveal">Tech Stack</h2>
+        <div class="skills-grid reveal">
+            
+            <div class="glass skill-category tilt-element">
+                <div class="skill-content">
+                    <h3>Cloud & MLOps</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Azure Machine Learning</span>
+                        <span class="skill-tag">Azure Functions</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">CI/CD</span>
                     </div>
                 </div>
             </div>
-            <!-- Project Card 2 -->
-            <div class="glass rounded-3xl overflow-hidden card-hover group">
-                <div class="h-48 bg-gradient-to-br from-teal-900 to-black flex items-center justify-center">
-                    <i class="fas fa-microchip text-5xl text-teal-500 group-hover:scale-110 transition"></i>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs font-bold text-teal-400 tracking-widest uppercase">Cloud Architecture</span>
-                    <h4 class="text-xl font-bold mt-2 mb-3">서버리스 전자상거래 백엔드</h4>
-                    <p class="text-gray-400 text-sm mb-4 leading-relaxed">Azure Functions와 Cosmos DB를 이용한 완전 관리형 오토스케일링 API 서버 아키텍처.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] px-2 py-1 bg-white/5 rounded-md">Node.js</span>
-                        <span class="text-[10px] px-2 py-1 bg-white/5 rounded-md">Azure Functions</span>
-                        <span class="text-[10px] px-2 py-1 bg-white/5 rounded-md">CosmosDB</span>
+
+            <div class="glass skill-category tilt-element">
+                <div class="skill-content">
+                    <h3>AI & Data</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">Scikit-Learn</span>
+                        <span class="skill-tag">Pandas / SQL</span>
                     </div>
                 </div>
             </div>
-            <!-- Project Card 3 -->
-            <div class="glass rounded-3xl overflow-hidden card-hover group">
-                <div class="h-48 bg-gradient-to-br from-purple-900 to-black flex items-center justify-center">
-                    <i class="fas fa-robot text-5xl text-purple-500 group-hover:scale-110 transition"></i>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs font-bold text-purple-400 tracking-widest uppercase">NLP & LLM</span>
-                    <h4 class="text-xl font-bold mt-2 mb-3">지능형 사내 문서 챗봇</h4>
-                    <p class="text-gray-400 text-sm mb-4 leading-relaxed">RAG(Retrieval-Augmented Generation) 패턴을 적용하여 GPT-4 기반의 맞춤형 질의응답 시스템 구현.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[10px] px-2 py-1 bg-white/5 rounded-md">LangChain</span>
-                        <span class="text-[10px] px-2 py-1 bg-white/5 rounded-md">OpenAI API</span>
-                        <span class="text-[10px] px-2 py-1 bg-white/5 rounded-md">Vector DB</span>
+
+            <div class="glass skill-category tilt-element">
+                <div class="skill-content">
+                    <h3>Full-Stack</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">HTML/CSS</span>
                     </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 프로젝트 섹션 -->
+    <section id="projects" class="container">
+        <h2 class="section-title reveal">Featured Projects</h2>
+        <div class="projects-grid reveal">
+            
+            <!-- 프로젝트 1 -->
+            <div class="glass project-card tilt-element">
+                <div class="project-content">
+                    <div class="project-type">Azure / AI</div>
+                    <h3 class="project-title">스마트 팩토리 불량 검출 시스템</h3>
+                    <p class="project-desc">제조 공정의 이미지 데이터를 수집하여 Azure ML 기반의 딥러닝(CNN) 모델로 실시간 불량을 판별하는 클라우드 솔루션을 구축했습니다.</p>
+                    <div class="project-tech">
+                        <span>Azure</span>
+                        <span>PyTorch</span>
+                        <span>React</span>
+                    </div>
+                    <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub</a>
+                </div>
+            </div>
+
+            <!-- 프로젝트 2 -->
+            <div class="glass project-card tilt-element">
+                <div class="project-content">
+                    <div class="project-type">Data Analysis / Full-Stack</div>
+                    <h3 class="project-title">고객 이탈 예측 대시보드</h3>
+                    <p class="project-desc">대규모 고객 데이터를 분석 및 전처리하고, 머신러닝 예측 결과를 시각화하여 마케팅 팀에 제공하는 웹 대시보드를 개발했습니다.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Scikit-Learn</span>
+                        <span>Node.js</span>
+                    </div>
+                    <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub</a>
+                </div>
+            </div>
+
+            <!-- 프로젝트 3 -->
+            <div class="glass project-card tilt-element">
+                <div class="project-content">
+                    <div class="project-type">Generative AI</div>
+                    <h3 class="project-title">AI 기반 문서 요약 서비스</h3>
+                    <p class="project-desc">LLM(대형 언어 모델)을 활용하여 방대한 비즈니스 문서를 자동으로 요약하고 핵심 인사이트를 추출하는 사내용 인공지능 웹 툴입니다.</p>
+                    <div class="project-tech">
+                        <span>OpenAI API</span>
+                        <span>LangChain</span>
+                        <span>FastAPI</span>
+                    </div>
+                    <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 연락처 섹션 -->
+    <section id="contact" class="container">
+        <div class="glass contact-wrap reveal tilt-element">
+            <div class="contact-content">
+                <h2>Let's Work Together</h2>
+                <p>데이터 분석부터 클라우드 배포까지, 아이디어를 현실로 만드는 과정에 함께할 준비가 되어 있습니다. 언제든지 편하게 연락주세요.</p>
+                <div class="social-links">
+                    <a href="mailto:email@example.com" class="btn-link">이메일 보내기</a>
+                    <a href="https://github.com/본인아이디" target="_blank" class="btn-link">GitHub 프로필</a>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 px-6 max-w-4xl mx-auto text-center">
-        <div class="glass p-12 rounded-[40px] relative overflow-hidden">
-            <div class="relative z-10">
-                <h3 class="text-3xl font-bold mb-6">함께 혁신을 만들어 갈까요?</h3>
-                <p class="text-gray-400 mb-10">
-                    기술적 문제 해결이나 새로운 프로젝트 협업 제안은 언제나 환영합니다.<br>
-                    가장 편한 방법으로 연락해 주세요.
-                </p>
-                <div class="flex justify-center space-x-6">
-                    <a href="mailto:your.email@example.com" class="w-14 h-14 flex items-center justify-center rounded-full glass hover:bg-white/10 transition text-2xl" title="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="https://github.com/yourusername" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full glass hover:bg-white/10 transition text-2xl" title="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="w-14 h-14 flex items-center justify-center rounded-full glass hover:bg-white/10 transition text-2xl" title="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-blue-600/20 rounded-full blur-3xl"></div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-10 px-6 border-t border-white/5 text-center text-gray-500 text-sm">
-        <p>&copy; 2026 Built with passion..</p>
-    </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+        // 1. 스크롤 등장 애니메이션 (Intersection Observer)
+        const reveals = document.querySelectorAll('.reveal');
         
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Close menu on link click
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Simple scroll animation observer
-        const observerOptions = {
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // 한 번 보이면 관찰 중지
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.15 });
 
-        // Apply fade-in to major sections
-        document.querySelectorAll('section').forEach(section => {
-            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
-            observer.observe(section);
+        reveals.forEach(reveal => revealObserver.observe(reveal));
+
+        // 2. 글래스모피즘 인터랙티브 3D 틸트 효과 (Vanilla JS)
+        const tiltElements = document.querySelectorAll('.tilt-element');
+
+        tiltElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left; // 카드 내 마우스 X 좌표
+                const y = e.clientY - rect.top;  // 카드 내 마우스 Y 좌표
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10; // 상하 회전 (최대 10도)
+                const rotateY = ((x - centerX) / centerX) * 10;  // 좌우 회전 (최대 10도)
+
+                el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                el.style.transition = 'transform 0.1s ease-out';
+            });
+
+            // 마우스가 벗어나면 원상복구
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                el.style.transition = 'transform 0.5s ease-out';
+            });
         });
     </script>
 </body>
