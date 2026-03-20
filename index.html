@@ -106,16 +106,8 @@
             z-index: 100;
             padding: 15px 30px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            text-decoration: none;
-            letter-spacing: 1px;
         }
 
         .nav-links {
@@ -349,8 +341,18 @@
         @media (max-width: 768px) {
             .hero-content { flex-direction: column; text-align: center; }
             .hero-text h1 { font-size: 2.5rem; }
-            .nav-links { display: none; } /* 모바일에서는 메뉴 숨김 (필요시 햄버거 메뉴 추가) */
-            header { justify-content: center; }
+            /* 모바일 환경에서도 메뉴 탭이 유지되도록 수정 */
+            .nav-links { 
+                display: flex; 
+                gap: 15px; 
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            } 
+            header { 
+                padding: 12px 20px; 
+                width: 95%; 
+            }
         }
     </style>
 </head>
@@ -365,7 +367,6 @@
 
     <!-- 글래스 네비게이션 -->
     <header class="glass">
-        <a href="#" class="logo">Dev.김민주</a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
@@ -510,6 +511,11 @@
             </div>
         </div>
     </section>
+
+    <!-- 푸터 -->
+    <footer style="text-align: center; padding: 40px 20px; font-size: 0.85rem; color: var(--text-muted); font-weight: 300;">
+        &copy; 2026 김민주. All rights reserved.
+    </footer>
 
     <script>
         // 1. 스크롤 등장 애니메이션 (Intersection Observer)
